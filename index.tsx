@@ -336,53 +336,6 @@ const Confetti = () => {
   return null;
 };
 
-const Mascot = ({ mood }: { mood: 'neutral' | 'happy' | 'sad' }) => {
-  const stickers = {
-    neutral: "https://c.tenor.com/t7aI0aq0A94AAAAC/bubu-dudu-panda.gif",
-    happy: "https://c.tenor.com/Z6mG5dG6d9AAAAC/bubu-dudu-happy.gif",     
-    sad: "https://c.tenor.com/19JKy6h4rAAAAAAC/bubu-dudu-cry.gif", 
-  };
-
-  return (
-    <div className="animate-float" style={{
-      width: '180px', 
-      height: '180px', 
-      marginBottom: '-20px', 
-      position: 'relative',
-      zIndex: 100, 
-      pointerEvents: 'none',
-      display: 'flex',
-      justifyContent: 'center',
-      alignItems: 'flex-end',
-      minHeight: '180px',
-      minWidth: '180px',
-    }}>
-      <img 
-        src={stickers[mood]} 
-        alt={`Mascot ${mood}`}
-        style={{
-          width: '100%', 
-          height: '100%',
-          objectFit: 'contain',
-          filter: 'drop-shadow(0 8px 15px rgba(0,0,0,0.15))',
-          display: 'block' 
-        }}
-        onError={(e) => {
-            const backups = {
-                neutral: "https://media.giphy.com/media/uM0QwRAwkD00dM4X6J/giphy.gif",
-                happy: "https://media.giphy.com/media/LZElUsjl1BuNs8tGWw/giphy.gif",
-                sad: "https://media.giphy.com/media/OPU6wzx8JrHna/giphy.gif"
-            };
-            const target = e.target as HTMLImageElement;
-            if (target.src !== backups[mood]) {
-                target.src = backups[mood];
-            }
-        }}
-      />
-    </div>
-  );
-};
-
 // Music Player (Updated to accept stopMusic prop)
 const MusicPlayer = ({ stopMusic }: { stopMusic: boolean }) => {
   const [isPlaying, setIsPlaying] = useState(true); 
@@ -761,7 +714,7 @@ const App = () => {
       <FloatingHearts />
       
       <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
-        <Mascot mood={mascotMood} />
+        {/* GIF REMOVED HERE AS REQUESTED */}
         
         <div className="animate-pop" style={styles.glassCard}>
           <h1 style={styles.title}>
