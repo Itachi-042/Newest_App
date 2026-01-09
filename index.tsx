@@ -545,7 +545,7 @@ const SecretModal = ({ show, onClose }: { show: boolean, onClose: () => void }) 
               <p style={{color: 'white', fontSize: '1.5rem', maxWidth: '600px', marginBottom: '30px'}}>
                   You clicked 10 times? You love me soo muchh you down bad bad! 
                   <br/>
-                  (And yes, I knew you would do that so embarrassing)
+                  (And yes, I knew you would do that.... so embarrassing)
               </p>
               
               <div style={{
