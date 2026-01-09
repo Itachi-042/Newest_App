@@ -34,7 +34,7 @@ const TRACKS = [
 ];
 
 const REASONS = [
-  "Your smile is my entire world 🌎",
+  "Your smile is my entire world",
   "You are my yesterday, today and all my tomorrows",
   "Can't wait for all those kissies",
   "You are my babiest babyyyy",
