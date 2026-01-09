@@ -543,9 +543,9 @@ const SecretModal = ({ show, onClose }: { show: boolean, onClose: () => void }) 
                   I LOVE YOU MORE! 
               </h1>
               <p style={{color: 'white', fontSize: '1.5rem', maxWidth: '600px', marginBottom: '30px'}}>
-                  You clicked 10 times? You must really love me! 
+                  You clicked 10 times? You love me soo muchh you down bad bad! 
                   <br/>
-                  (And yes, I knew you would do that 😉)
+                  (And yes, I knew you would do that so embarrassing)
               </p>
               
               <div style={{
@@ -568,7 +568,7 @@ const SecretModal = ({ show, onClose }: { show: boolean, onClose: () => void }) 
                   ></iframe>
               </div>
 
-              <div style={{fontSize: '5rem', marginTop: '20px'}}>🥰💍♾️</div>
+              <div style={{fontSize: '5rem', marginTop: '20px'}}>💍NOW MARRY ME♾️</div>
               <div 
                   onClick={onClose}
                   style={{color: '#aaa', marginTop: '20px', fontSize: '0.9rem', cursor: 'pointer', textDecoration: 'underline'}}
