@@ -4,14 +4,14 @@ import { createRoot } from 'react-dom/client';
 // --- 1. Types & Constants ---
 
 const PHRASES = [
-  "No 🙄",
+  "No",
   "Are you sure?",
-  "Think again 😐",
-  "Last chance 👀",
+  "Think again",
+  "Last chance",
   "Don't do this...",
-  "You're breaking my heart 💔",
+  "You're breaking my heart 🥹",
   "I'm gonna cry...",
-  "You have no choice now 😈" // The trigger for the Yeet
+  "YOU FOOL KHEL KHTM" // 
 ];
 
 const TRACKS = [
@@ -34,25 +34,25 @@ const TRACKS = [
 ];
 
 const REASONS = [
-  "Your smile lights up my entire world 🌎",
-  "You make even the boring days fun 🎉",
-  "You give the best hugs 🤗",
-  "I can be my complete weird self around you 🤪",
-  "You're smarter than you know 🧠",
-  "The way you laugh is my favorite sound 🎵",
-  "You support my dreams 🚀",
-  "You have the kindest heart ❤️",
-  "Every moment with you is a memory I cherish 📸",
-  "I love you more than pizza (and that's saying a lot) 🍕"
+  "Your smile is my entire world 🌎",
+  "You are my yesterday, today and all my tomorrows",
+  "Can't wait for all those kissies",
+  "You are my babiest babyyyy",
+  "You're smarter than you know, much much",
+  "Your laugh; my favorite sound",
+  "My sun. my moon and all my starts ✨",
+  "You have all my heart <3 ",
+  "I love you more than any kitten",
+  "Ik Hou Van Jou 💗"
 ];
 
 const COUPONS = [
-  { id: 1, title: "Massage", icon: "💆‍♀️" },
-  { id: 2, title: "Dinner Choice", icon: "🍝" },
+  { id: 1, title: "Head....Massage", icon: "🧠" },
+  { id: 2, title: "Free Blinkit", icon: "🚚" },
   { id: 3, title: "Movie Night", icon: "🎬" },
-  { id: 4, title: "Win Argument", icon: "🏆" },
+  { id: 4, title: "Win Argument(not actually needed)", icon: "🏆" },
   { id: 5, title: "Sweet Treat", icon: "🍦" },
-  { id: 6, title: "Big Hug", icon: "🫂" },
+  { id: 6, title: "Hug and cuddles", icon: "🥺" },
 ];
 
 // --- 2. Styles ---
@@ -410,7 +410,7 @@ const MusicPlayer = ({ stopMusic }: { stopMusic: boolean }) => {
 
   return (
     <div className="animate-slide-up delay-2" style={styles.section} onMouseEnter={(e) => e.currentTarget.style.transform = 'translateY(-5px)'} onMouseLeave={(e) => e.currentTarget.style.transform = 'translateY(0)'}>
-      <h3 style={styles.sectionTitle}>🎶 Our Vibe</h3>
+      <h3 style={styles.sectionTitle}>🎶 Rave vibes (kinda?) </h3>
       <div style={styles.vinylPlayer}>
         <div style={{
           position: 'absolute', 
@@ -485,7 +485,7 @@ const MusicPlayer = ({ stopMusic }: { stopMusic: boolean }) => {
         @keyframes spin { 100% { transform: rotate(360deg); } }
       `}</style>
       <div style={{fontSize: '0.8rem', marginTop: '10px', opacity: 0.6, fontStyle: 'italic'}}>
-        (If music doesn't auto-start, click Play!)
+        (If music doesn't auto-start, click Play pwease!!)
       </div>
     </div>
   );
@@ -505,7 +505,7 @@ const ReasonsSwiper = () => {
 
   return (
     <div className="animate-slide-up delay-3" style={styles.section} onMouseEnter={(e) => e.currentTarget.style.transform = 'translateY(-5px)'} onMouseLeave={(e) => e.currentTarget.style.transform = 'translateY(0)'}>
-      <h3 style={styles.sectionTitle}>💌 10 Reasons Why</h3>
+      <h3 style={styles.sectionTitle}>Flashcard time 💋</h3>
       <div 
         style={{...styles.reasonCard, opacity: opacity, transform: `scale(${opacity === 0 ? 0.95 : 1})`}} 
         onClick={nextReason}
@@ -529,7 +529,7 @@ const CouponBank = () => {
 
   return (
     <div className="animate-slide-up delay-4" style={styles.section} onMouseEnter={(e) => e.currentTarget.style.transform = 'translateY(-5px)'} onMouseLeave={(e) => e.currentTarget.style.transform = 'translateY(0)'}>
-      <h3 style={styles.sectionTitle}>🎟️ Love Coupons</h3>
+      <h3 style={styles.sectionTitle}>🎟️ Unlimited Love Coupons</h3>
       <p style={{fontSize: '1rem', marginBottom: '20px', color: '#666'}}>Tap to redeem (No expiration!)</p>
       <div style={styles.couponGrid}>
         {COUPONS.map(coupon => {
@@ -714,9 +714,9 @@ const App = () => {
         
         <div style={styles.dashboard}>
           <div className="animate-slide-up delay-1" style={{textAlign: 'center', marginBottom: '50px'}}>
-             <h1 style={styles.title}>Wooohooo! 🎉</h1>
+             <h1 style={styles.title}>Wooohooo! </h1>
              <p style={{fontSize: '1.5rem', color: '#590d22', fontWeight: 700}}>
-               You're officially my Valentine! 💖
+               You're officially my Forever Valentine!
              </p>
           </div>
 
@@ -738,7 +738,7 @@ const App = () => {
           <CouponBank />
           
           <div className="animate-slide-up delay-5" style={{marginTop: '60px', opacity: 0.6, fontSize: '0.9rem', color: '#590d22', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '20px'}}>
-            <div>Made with all my ❤️</div>
+            <div>Made with all my 💗 (and a lil AI)</div>
           </div>
         </div>
 
@@ -765,10 +765,10 @@ const App = () => {
         
         <div className="animate-pop" style={styles.glassCard}>
           <h1 style={styles.title}>
-             {noCount >= PHRASES.length - 1 ? "Pretty please? 🥺" : "Will you be my Valentine? 💖"}
+             {noCount >= PHRASES.length - 1 ? "Pretty please? 🥺" : "Will you be my Valentine? <3 :3"}
           </h1>
           <p style={styles.text}>
-            {noCount === 0 ? "I've been meaning to ask you something special..." : "Don't break my heart! (There's only one right answer 😉)"}
+            {noCount === 0 ? "I've been meaning to ask you something..." : "Don't break my heart! (There's only one right answer)"}
           </p>
           
           <div style={styles.buttonGroup}>
@@ -790,7 +790,7 @@ const App = () => {
               }}
               onClick={() => setYesPressed(true)}
             >
-              {noCount >= PHRASES.length - 1 ? "YES (Finally!) 💖" : "YES 💘"}
+              {noCount >= PHRASES.length - 1 ? "YES (Awlelelele) " : "YESSS "}
             </button>
 
             {!isYeeted && (
