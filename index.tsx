@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { createRoot } from 'react-dom/client';
 
-// --- Types & Constants ---
+// --- 1. Types & Constants ---
 
 const PHRASES = [
   "No 🙄",
@@ -14,7 +14,6 @@ const PHRASES = [
   "You have no choice now 😈" // The trigger for the Yeet
 ];
 
-// UPDATED TRACK LIST (User Requested)
 const TRACKS = [
   { title: "Can't Help Falling In Love", artist: "Foster (Cover)", id: "3B5M8TyYpeg" },
   { title: "FOOL", artist: "Frankie Cosmos", id: "I4vFP9ZgSI8" },
@@ -56,7 +55,7 @@ const COUPONS = [
   { id: 6, title: "Big Hug", icon: "🫂" },
 ];
 
-// --- CSS-in-JS Styles (Scoped & Premium) ---
+// --- 2. Styles ---
 
 const styles = {
   container: {
@@ -162,7 +161,6 @@ const styles = {
     alignItems: 'center',
     gap: '12px',
   },
-  // New Vinyl Player Style
   vinylPlayer: {
     background: 'linear-gradient(145deg, #1e1e24, #2b2d42)',
     borderRadius: '24px',
@@ -231,9 +229,23 @@ const styles = {
     gap: '8px',
     boxShadow: '0 4px 15px rgba(0,0,0,0.05)',
   },
+  footer: {
+    position: 'fixed' as const,
+    bottom: '10px',
+    right: '15px',
+    color: '#ff4d6d',
+    fontSize: '0.85rem',
+    fontFamily: 'var(--font-body)',
+    fontWeight: 600,
+    opacity: 0.7,
+    cursor: 'pointer',
+    zIndex: 9999,
+    userSelect: 'none' as const,
+    transition: 'all 0.3s ease',
+  }
 };
 
-// --- Helper Components ---
+// --- 3. Helper Components ---
 
 const CursorTrail = () => {
   useEffect(() => {
@@ -325,7 +337,6 @@ const Confetti = () => {
 };
 
 const Mascot = ({ mood }: { mood: 'neutral' | 'happy' | 'sad' }) => {
-  // Use high-reliability links for Bubu Dudu (Tenor c.tenor.com direct links)
   const stickers = {
     neutral: "https://c.tenor.com/t7aI0aq0A94AAAAC/bubu-dudu-panda.gif",
     happy: "https://c.tenor.com/Z6mG5dG6d9AAAAC/bubu-dudu-happy.gif",     
@@ -372,15 +383,21 @@ const Mascot = ({ mood }: { mood: 'neutral' | 'happy' | 'sad' }) => {
   );
 };
 
-// Updated Music Player: Vinyl Style + Hidden Youtube
-const MusicPlayer = () => {
+// Music Player (Updated to accept stopMusic prop)
+const MusicPlayer = ({ stopMusic }: { stopMusic: boolean }) => {
   const [isPlaying, setIsPlaying] = useState(true); 
   const [currentTrackIndex, setCurrentTrackIndex] = useState(0);
 
-  // Randomly select a song ONCE when the component mounts
   useEffect(() => {
     setCurrentTrackIndex(Math.floor(Math.random() * TRACKS.length));
   }, []);
+
+  // Stop music when requested
+  useEffect(() => {
+    if (stopMusic) {
+        setIsPlaying(false);
+    }
+  }, [stopMusic]);
 
   const handleNext = () => {
     setCurrentTrackIndex((prev) => (prev + 1) % TRACKS.length);
@@ -395,8 +412,6 @@ const MusicPlayer = () => {
     <div className="animate-slide-up delay-2" style={styles.section} onMouseEnter={(e) => e.currentTarget.style.transform = 'translateY(-5px)'} onMouseLeave={(e) => e.currentTarget.style.transform = 'translateY(0)'}>
       <h3 style={styles.sectionTitle}>🎶 Our Vibe</h3>
       <div style={styles.vinylPlayer}>
-        
-        {/* HIDDEN Video Player - No ugly error messages */}
         <div style={{
           position: 'absolute', 
           width: '0px',
@@ -415,15 +430,12 @@ const MusicPlayer = () => {
             ></iframe>
            )}
         </div>
-
-        {/* Vinyl Animation */}
         <div style={{
           ...styles.vinylDisc,
           animation: isPlaying ? 'spin 3s linear infinite' : 'none',
         }}>
           <div style={styles.vinylLabel}></div>
         </div>
-
         <div style={{flex: 1, overflow: 'hidden', zIndex: 5}}>
           <div style={{fontWeight: 'bold', fontSize: '1.2rem', marginBottom: '5px'}}>
             {currentTrack.title}
@@ -432,7 +444,6 @@ const MusicPlayer = () => {
             {currentTrack.artist}
           </div>
         </div>
-
         <div style={{display: 'flex', gap: '10px', zIndex: 5}}>
            <button 
             onClick={togglePlay}
@@ -546,15 +557,83 @@ const CouponBank = () => {
   );
 };
 
-// --- Main Application ---
+// --- 4. Footer & Secret Modal (Must be defined BEFORE App) ---
+
+const Footer = ({ eggCount, onClick }: { eggCount: number, onClick: () => void }) => (
+   <div 
+      style={styles.footer} 
+      onClick={onClick}
+      title="Tap 10 times for a secret..."
+      onMouseEnter={(e) => e.currentTarget.style.opacity = '1'}
+      onMouseLeave={(e) => e.currentTarget.style.opacity = '0.7'}
+   >
+      Made by Shishir for Mon Amour {eggCount >= 10 ? " ∞" : (eggCount > 0 ? ` ${eggCount}` : "")}
+   </div>
+);
+
+const SecretModal = ({ show, onClose }: { show: boolean, onClose: () => void }) => (
+   show ? (
+      <div className="animate-pop" style={{
+          position: 'fixed',
+          top: 0, left: 0, right: 0, bottom: 0,
+          background: 'rgba(0,0,0,0.85)',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          zIndex: 9999,
+          flexDirection: 'column',
+          padding: '20px',
+          textAlign: 'center'
+      }} onClick={onClose}>
+          <div onClick={(e) => e.stopPropagation()} style={{display:'flex', flexDirection:'column', alignItems:'center'}}>
+              <h1 style={{color: '#ff4d6d', fontFamily: 'var(--font-heading)', fontSize: '4rem', marginBottom: '20px'}}>
+                  I LOVE YOU MORE! 
+              </h1>
+              <p style={{color: 'white', fontSize: '1.5rem', maxWidth: '600px', marginBottom: '30px'}}>
+                  You clicked 10 times? You must really love me! 
+                  <br/>
+                  (And yes, I knew you would do that 😉)
+              </p>
+              
+              <div style={{
+                  borderRadius: '20px', 
+                  overflow: 'hidden', 
+                  boxShadow: '0 20px 50px rgba(255, 77, 109, 0.5)',
+                  border: '4px solid white',
+                  width: '100%',
+                  maxWidth: '560px'
+              }}>
+                  <iframe 
+                      width="560" 
+                      height="315" 
+                      src="https://www.youtube.com/embed/a2GujJZfXpg?autoplay=1" 
+                      title="Your Name - Sparkle" 
+                      frameBorder="0" 
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                      allowFullScreen
+                      style={{display: 'block', maxWidth: '100%'}}
+                  ></iframe>
+              </div>
+
+              <div style={{fontSize: '5rem', marginTop: '20px'}}>🥰💍♾️</div>
+              <div 
+                  onClick={onClose}
+                  style={{color: '#aaa', marginTop: '20px', fontSize: '0.9rem', cursor: 'pointer', textDecoration: 'underline'}}
+              >
+                  (Tap anywhere to close)
+              </div>
+          </div>
+      </div>
+  ) : null
+);
+
+// --- 5. Main Application ---
 
 const App = () => {
   const [noCount, setNoCount] = useState(0);
   const [yesPressed, setYesPressed] = useState(false);
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
   const [mascotMood, setMascotMood] = useState<'neutral' | 'happy' | 'sad'>('neutral');
-  
-  // State for the "Runaway" button position
   const [noBtnPos, setNoBtnPos] = useState({ x: 0, y: 0 });
   const [isRunningAway, setIsRunningAway] = useState(false);
   const [isYeeted, setIsYeeted] = useState(false);
@@ -562,8 +641,8 @@ const App = () => {
   // Easter Egg State
   const [eggCount, setEggCount] = useState(0);
   const [showSecret, setShowSecret] = useState(false);
+  const [playSecretSong, setPlaySecretSong] = useState(false); 
 
-  // Background Interaction
   useEffect(() => {
     const handleMove = (e: MouseEvent | TouchEvent) => {
       let x, y;
@@ -587,7 +666,6 @@ const App = () => {
 
   const moveNoButton = () => {
     if (noCount < 2 || isYeeted) return;
-
     setIsRunningAway(true);
     const xRange = 150; 
     const yRange = 150;
@@ -597,15 +675,24 @@ const App = () => {
   };
 
   const handleNoClick = () => {
-    moveNoButton(); // FORCE move on click to prevent spamming without movement
+    moveNoButton();
     if (noCount >= PHRASES.length - 1) {
       setNoCount(prev => prev + 1);
       setTimeout(() => {
         setIsYeeted(true);
-        setMascotMood('neutral'); // Calm down after yeet
+        setMascotMood('neutral'); 
       }, 500);
     } else {
       setNoCount(prev => prev + 1);
+    }
+  };
+
+  const handleFooterClick = () => {
+    const newCount = eggCount + 1;
+    setEggCount(newCount);
+    if (newCount === 10) {
+        setShowSecret(true);
+        setPlaySecretSong(true);
     }
   };
 
@@ -646,80 +733,28 @@ const App = () => {
             />
           </div>
 
-          <MusicPlayer />
+          <MusicPlayer stopMusic={playSecretSong} />
           <ReasonsSwiper />
           <CouponBank />
           
           <div className="animate-slide-up delay-5" style={{marginTop: '60px', opacity: 0.6, fontSize: '0.9rem', color: '#590d22', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '20px'}}>
             <div>Made with all my ❤️</div>
-            
-            {/* Easter Egg Button */}
-            <button 
-                onClick={() => {
-                    const newCount = eggCount + 1;
-                    setEggCount(newCount);
-                    if (newCount === 10) {
-                        setShowSecret(true);
-                    }
-                }}
-                style={{
-                    background: 'transparent',
-                    border: '2px solid rgba(255, 77, 109, 0.3)',
-                    color: '#ff4d6d',
-                    padding: '8px 20px',
-                    borderRadius: '20px',
-                    cursor: 'pointer',
-                    fontSize: '0.8rem',
-                    opacity: 0.8,
-                    transition: 'all 0.2s',
-                    transform: `scale(${1 + eggCount * 0.05})`
-                }}
-            >
-                YES (Again!) {eggCount > 0 && eggCount < 10 ? `x${eggCount}` : ''} 💖
-            </button>
           </div>
         </div>
 
-        {/* Easter Egg Modal */}
-        {showSecret && (
-            <div className="animate-pop" style={{
-                position: 'fixed',
-                top: 0, left: 0, right: 0, bottom: 0,
-                background: 'rgba(0,0,0,0.85)',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                zIndex: 9999,
-                flexDirection: 'column',
-                padding: '20px',
-                textAlign: 'center'
-            }} onClick={() => setShowSecret(false)}>
-                <h1 style={{color: '#ff4d6d', fontFamily: 'var(--font-heading)', fontSize: '4rem', marginBottom: '20px'}}>
-                    I LOVE YOU MORE! 
-                </h1>
-                <p style={{color: 'white', fontSize: '1.5rem', maxWidth: '600px'}}>
-                    You clicked YES 10 times? You must really love me! 
-                    <br/><br/>
-                    (And yes, I knew you would do that 😉)
-                </p>
-                <div style={{fontSize: '5rem', marginTop: '20px'}}>🥰💍♾️</div>
-                <div style={{color: '#aaa', marginTop: '40px', fontSize: '0.9rem'}}>(Tap anywhere to close)</div>
-            </div>
-        )}
+        <Footer eggCount={eggCount} onClick={handleFooterClick} />
+        <SecretModal show={showSecret} onClose={() => setShowSecret(false)} />
       </div>
     );
   }
 
   // Render: The Proposal (Gatekeeper)
-  // Dynamic Background Gradient based on mouse position + animation
   const bgX = (mousePos.x / window.innerWidth) * 100;
   const bgY = (mousePos.y / window.innerHeight) * 100;
 
   return (
     <div style={{
       ...styles.container,
-      // Combining dynamic mouse gradient with css animation is tricky, defaulting to CSS animation dominant with mouse hint
-      // or we can use the mouse pos to shift the center slightly
       background: `radial-gradient(circle at ${bgX}% ${bgY}%, rgba(255,255,255,0.2) 0%, rgba(255,0,0,0) 50%)`,
     }}>
       <CursorTrail />
@@ -798,6 +833,9 @@ const App = () => {
           </div>
         </div>
       </div>
+      
+      <Footer eggCount={eggCount} onClick={handleFooterClick} />
+      <SecretModal show={showSecret} onClose={() => setShowSecret(false)} />
     </div>
   );
 };
